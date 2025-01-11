@@ -2,17 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import TaskBoard from './components/TaskBoard';
 import AddTaskForm from './components/AddTaskForm';
+import Chart from './components/Chart';
+import AIChatModal from './components/AIChatModal';
 import './App.css';
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showAIChat, setShowAIChat] = useState(false);
   const [filters, setFilters] = useState({
     status: '',
     priority: '',
     type: '',
     search: ''
+  });
+  const [projectDetails, setProjectDetails] = useState({
+    name: "AI Task Manager",
+    version: "1.0.0",
+    description: "A task management application with AI assistance",
+    // Add any other relevant project details
   });
 
   useEffect(() => {
@@ -46,7 +55,6 @@ function App() {
   const applyFilters = () => {
     let filtered = [...tasks];
 
-    // Apply search filter
     if (filters.search) {
       filtered = filtered.filter(task => 
         task.title.toLowerCase().includes(filters.search.toLowerCase()) ||
@@ -54,17 +62,14 @@ function App() {
       );
     }
 
-    // Apply status filter
     if (filters.status) {
       filtered = filtered.filter(task => task.status === filters.status);
     }
 
-    // Apply priority filter
     if (filters.priority) {
       filtered = filtered.filter(task => task.priority === filters.priority);
     }
 
-    // Apply type filter
     if (filters.type) {
       filtered = filtered.filter(task => task.type === filters.type);
     }
@@ -77,7 +82,7 @@ function App() {
       <header className="app-header">
         <h1 className="app-title">AI Task Manager</h1>
         <div className="header-buttons">
-          <button className="ai-button">Ask Noteflow AI</button>
+          <button className="ai-button" onClick={() => setShowAIChat(true)}>Ask AI</button>
           <button className="create-task-button" onClick={() => setShowAddForm(true)}>
             <Plus size={16} />
             Create Task
@@ -136,8 +141,18 @@ function App() {
       {showAddForm && (
         <AddTaskForm onClose={() => setShowAddForm(false)} onTaskAdded={fetchTasks} />
       )}
+      <Chart tasks={filteredTasks} />
+      <AIChatModal 
+  isOpen={showAIChat} 
+  onClose={() => setShowAIChat(false)} 
+  tasks={filteredTasks} 
+  projectDetails={projectDetails}
+  onTaskAdded={fetchTasks}
+  onTaskUpdated={fetchTasks}
+/>
     </div>
   );
 }
 
 export default App;
+
