@@ -17,12 +17,6 @@ function App() {
     type: '',
     search: ''
   });
-  const [projectDetails, setProjectDetails] = useState({
-    name: "AI Task Manager",
-    version: "1.0.0",
-    description: "A task management application with AI assistance",
-    // Add any other relevant project details
-  });
 
   useEffect(() => {
     fetchTasks();
@@ -75,6 +69,28 @@ function App() {
     }
 
     setFilteredTasks(filtered);
+  };
+
+  const getProjectData = () => {
+    return {
+      tasks: tasks,
+      filteredTasks: filteredTasks,
+      filters: filters,
+      projectStats: {
+        totalTasks: tasks.length,
+        completedTasks: tasks.filter(t => t.status === 'Completed').length,
+        inProgressTasks: tasks.filter(t => t.status === 'In Progress').length,
+        pendingTasks: tasks.filter(t => t.status === 'Pending').length,
+        p0Tasks: tasks.filter(t => t.priority === 'P0').length,
+        p1Tasks: tasks.filter(t => t.priority === 'P1').length,
+        p2Tasks: tasks.filter(t => t.priority === 'P2').length,
+      },
+      deadlines: tasks
+        .filter(t => t.due_date)
+        .sort((a, b) => new Date(a.due_date) - new Date(b.due_date))
+        .slice(0, 5)
+        .map(t => ({ id: t._id, title: t.title, dueDate: t.due_date })),
+    };
   };
 
   return (
@@ -143,13 +159,11 @@ function App() {
       )}
       <Chart tasks={filteredTasks} />
       <AIChatModal 
-  isOpen={showAIChat} 
-  onClose={() => setShowAIChat(false)} 
-  tasks={filteredTasks} 
-  projectDetails={projectDetails}
-  onTaskAdded={fetchTasks}
-  onTaskUpdated={fetchTasks}
-/>
+        isOpen={showAIChat} 
+        onClose={() => setShowAIChat(false)} 
+        projectData={getProjectData()}
+        onTaskAdded={fetchTasks}
+      />
     </div>
   );
 }
