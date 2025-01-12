@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const GEMINI_API_KEY = 'GEMINI_API_KEY';
+const GEMINI_API_KEY = 'process.env.GEMINI_API_KEY';
 const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 
 async function getGeminiResponse(prompt, projectData) {
