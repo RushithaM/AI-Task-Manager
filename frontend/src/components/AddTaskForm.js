@@ -21,7 +21,7 @@ function AddTaskForm({ onClose, onTaskAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/tasks/add', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

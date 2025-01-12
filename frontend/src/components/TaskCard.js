@@ -13,7 +13,7 @@ function TaskCard({ task, onTaskDeleted }) {
     e.stopPropagation();
     if (window.confirm('Are you sure you want to delete this task?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/tasks/${task._id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${task._id}`, {
           method: 'DELETE',
         });
         if (response.ok) {

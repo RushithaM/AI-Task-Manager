@@ -1,6 +1,6 @@
 export async function getGeminiResponse(prompt, projectData) {
   try {
-    const response = await fetch('http://localhost:5000/api/tasks/gemini', {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/gemini`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
