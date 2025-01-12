@@ -1,6 +1,9 @@
 const axios = require('axios');
+const dotenv = require('dotenv');
 
-const GEMINI_API_KEY = 'process.env.GEMINI_API_KEY';
+dotenv.config();
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 
 async function getGeminiResponse(prompt, projectData) {
