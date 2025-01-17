@@ -1,0 +1,12 @@
+:root {
+  --header-bg: #1e293b;
+  --purple-button: #7c3aed;
+  --green-button: #10b981;
+  --card-border: #e5e7eb;
+}
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
