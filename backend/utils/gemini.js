@@ -17,12 +17,13 @@ async function getGeminiResponse(prompt, projectData) {
 
       User Query: ${prompt}
 
-      If the user wants to create a task, guide them through the process by asking for the following information one by one:
+      If only when the user wants to create a task, guide them through the process by asking for the following information one by one:
       1. Task name
       2. Priority (P0, P1, or P2)
       3. Description
       4. Assigned story points
-      5. Due date (YYYY-MM-DD format)
+      5. Actual story points
+      6. Due date (YYYY-MM-DD format)
 
       For any project-related queries, provide specific details and statistics when possible.
       If the query is outside the scope of the project or task management, politely inform the user that you can only assist with project-related questions.
